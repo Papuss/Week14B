@@ -8,11 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+
 namespace MondayDriver
 {
     public partial class Form1 : Form
     {
-  
+
         public Form1()
         {
             InitializeComponent();
@@ -20,28 +21,25 @@ namespace MondayDriver
 
         private void button1_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
-            if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+
+            
+            string path = listBox1.SelectedItem.ToString();
+            listBox1.Items.Clear();
+            string[] files = Directory.GetFiles(path, "*.txt");
+            string[] directories = Directory.GetDirectories(path);
+            showPathTextBox.Text = path;
+             foreach (string file in files)
+             {
+                 listBox1.Items.Add(file);
+             }
+            foreach (string dir in directories)
             {
-                listBox1.Items.Clear();
-                string[] files = Directory.GetFiles(fbd.SelectedPath,"*.txt");
-                string[] directories = Directory.GetDirectories(fbd.SelectedPath);
-                showPathTextBox.Text = fbd.SelectedPath;
-                foreach (string file in files)
-                {
-                    listBox1.Items.Add(Path.GetFileName(file));
-                }
-                foreach (string dir in directories)
-                {
-                    listBox1.Items.Add(Path.GetFileName(dir));
-                }
+                listBox1.Items.Add(dir);
             }
+        
+    
             
-            
-           
-
         }
-
 
         private void label2_Click(object sender, EventArgs e)
         {
@@ -50,18 +48,17 @@ namespace MondayDriver
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Object selectedItem = comboBox1.SelectedItem;
             listBox1.Items.Clear();
-            string[] files = Directory.GetFiles(selectedItem.ToString(),"*.txt");
-            string[] directories = Directory.GetDirectories(selectedItem.ToString());
-            showPathTextBox.Text = selectedItem.ToString();
+            string[] files = Directory.GetFiles(comboBox1.Text,"*.txt");
+            string[] directories = Directory.GetDirectories(comboBox1.Text);
+            showPathTextBox.Text = comboBox1.Text;
             foreach (string file in files)
             {
-                listBox1.Items.Add(Path.GetFileName(file));
+                listBox1.Items.Add(file);
             }
             foreach (string dir in directories)
             {
-                listBox1.Items.Add(Path.GetFileName(dir));
+                listBox1.Items.Add(dir);
             }
 
         }
@@ -87,6 +84,11 @@ namespace MondayDriver
         private void button2_Click(object sender, EventArgs e)
         {
             listBox1.Items.Remove(listBox1.SelectedItem);
+        }
+
+        private void showPathTextBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

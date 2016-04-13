@@ -72,6 +72,7 @@
             this.showPathTextBox.Name = "showPathTextBox";
             this.showPathTextBox.Size = new System.Drawing.Size(211, 20);
             this.showPathTextBox.TabIndex = 4;
+            this.showPathTextBox.TextChanged += new System.EventHandler(this.showPathTextBox_TextChanged);
             // 
             // label2
             // 
